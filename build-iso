@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+kickstart_file="${1:-}"
+work_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+script_file="${work_dir}/$(basename "${BASH_SOURCE[0]}")"
+iso_dir="${work_dir}/isos/$(date +%Y%m%d%H%M)"
+fedora_version="$(rpm -q --queryformat '%{VERSION}' fedora-release)"
+
+if [ -z "${kickstart_file}" ];then
+    echo "Please specify a kickstart file"
+    echo "USAGE : ${script_file} <kickstart-file>"
+    exit 1
+fi
+
+kickstart_name="$(basename ${kickstart_file} .ks)"
+if ! rpm -q --quiet livecd-tools ; then 
+  dnf install -y livecd-tools
+fi
+
+if ! rpm -q --quiet spin-kickstarts ; then 
+  dnf install -y spin-kickstarts
+fi
+
+cp -r /usr/share/spin-kickstarts fedora
+
+livemedia-creator --ks "${kickstart_file}" --no-virt --resultdir "${iso_dir}" --project "${kickstart_name}" --make-iso --volid "${kickstart_name}" --iso-only --iso-name "${kickstart_name}".iso --releasever "${fedora_version}" --title "${kickstart_name}" --macboot
