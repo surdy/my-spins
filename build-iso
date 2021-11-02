@@ -17,14 +17,21 @@ if [ -z "${kickstart_file}" ];then
 fi
 
 kickstart_name="$(basename ${kickstart_file} .ks)"
+kickstart_file_flattened="${kickstart_name}-flat.ks"
 if ! rpm -q --quiet livecd-tools ; then 
   dnf install -y livecd-tools
 fi
 
-if ! rpm -q --quiet spin-kickstarts ; then 
-  dnf install -y spin-kickstarts
+if ! rpm -q --quiet pykickstart ; then 
+  dnf install -y pykickstart
 fi
 
-cp -r /usr/share/spin-kickstarts fedora
+rm -rf fedora
+git clone https://pagure.io/fedora-kickstarts.git fedora
+cd fedora
+git checkout f${fedora_version}
+cd ..
 
-livemedia-creator --ks "${kickstart_file}" --no-virt --resultdir "${iso_dir}" --project "${kickstart_name}" --make-iso --volid "${kickstart_name}" --iso-only --iso-name "${kickstart_name}".iso --releasever "${fedora_version}" --title "${kickstart_name}" --macboot
+cp -r /usr/share/spin-kickstarts fedora
+ksflatten --config "${kickstart_file}" -o "${kickstart_file_flattened}"
+livemedia-creator --ks "${kickstart_file_flattened}" --no-virt --resultdir "${iso_dir}" --project "${kickstart_name}" --make-iso --volid "${kickstart_name}" --iso-only --iso-name "${kickstart_name}".iso --releasever "${fedora_version}" --macboot

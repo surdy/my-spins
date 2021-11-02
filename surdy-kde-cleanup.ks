@@ -7,26 +7,26 @@
 -@kde-telepathy
 -quipzilla
 -marble
--plasma-discover
+-plasma-discover*
 -khelpcenter
 -plasma-desktop-doc
 -akregator
--korganizer
--kmouth
+#-korganizer
+#-kmouth
 -abrt-desktop
 -kcm_systemd
--kmenuedit
--knode
--kaddressbook
+#-kmenuedit
+#-knode
+#-kaddressbook
 -kruler
 
 -konqueror
--kmail
+#-kmail
 -kget
 -k3b
 -kate
 
--qt5-qtwebkit
+#-qt5-qtwebkit
 -qtwebkit
 okular
 
