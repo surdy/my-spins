@@ -1,8 +1,7 @@
 %packages
 
--f27-backgrounds-base
 -mediawriter
--nano
+-nano-*
 -speech-dispatcher
 -samba-client
 -festival-speechtools

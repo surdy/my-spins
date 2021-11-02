@@ -1,14 +1,19 @@
 %include thirdparty/all-repos.ks
 
+%pre-install
+mkdir -p /mnt/sysimage/etc/default
+touch /mnt/sysimage/etc/default/grub
+%end
+
 %packages
 
 wget
 vim-enhanced
 git
 jq
-terminator
-docker
-VirtualBox-5.2
+moby-engine
+VirtualBox
+akmod-VirtualBox
 vagrant
 vlc
 google-chrome-stable
@@ -18,13 +23,9 @@ slack
 nvidia-driver
 nvidia-settings
 kernel-devel
-dkms-nvidia
+#dkms-nvidia
+akmod-nvidia
 
 akmod-wl
 
-%end
-
-
-%post
-/usr/lib/virtualbox/vboxdrv.sh setup
 %end

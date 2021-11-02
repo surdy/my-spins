@@ -1,6 +1,6 @@
 # Google Chrome repo
 
-repo --name="Google Chrome" --baseurl=http://dl.google.com/linux/chrome/rpm/stable/$basearch/
+repo --name="Google-Chrome" --baseurl=http://dl.google.com/linux/chrome/rpm/stable/$basearch/
 
 # Install repo in the installed version as well
 %post

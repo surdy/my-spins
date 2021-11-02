@@ -1,6 +1,6 @@
 # Oracle Virtualbox repo 
 
-repo --name="Oracle Virtualbox" --baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch/
+repo --name="Oracle-Virtualbox" --baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch/
 
 # Install repo in the installed version as well
 %post
